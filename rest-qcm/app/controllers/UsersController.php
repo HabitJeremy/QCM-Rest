@@ -36,12 +36,13 @@ class UsersController extends Controller {
 		$user->setPrenom($prenom);
 		$user->setRang(2);
 		
+		
 		if($user->save()){
 			$token=bin2hex(openssl_random_pseudo_bytes(16));
 			$this->persistent->token = $token;
 			echo '{"token":"'.$token.'","inserted":true}';
 		}else{
-			echo '{"inserted":false}';
+			echo '{"inserted":false,"mail":"'.$user->getMail().'","password":"'.$user->getPassword().'","nom":"'.$user->getNom().'","prenom":"'.$user->getPrenom().'"}';
 		}
 	}
 	
